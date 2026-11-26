@@ -1,0 +1,7 @@
+/dist/
+/.data/
+/.wrangler/
+/node_modules/
+/.env*
+/.dev.vars*
+/wrangler.jsonc
