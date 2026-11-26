@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="شارك رابطك، واستقبل الرسائل المجهولة، واختر ما تريد الرد عليه.">
+  <meta name="theme-color" content="#f6f3fb">
+  <title>همسة | رسائل مجهولة</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">الانتقال إلى المحتوى</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="همسة، الصفحة الرئيسية">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>همسة</span>
+      </a>
+      <nav class="header-actions" aria-label="الحساب"></nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <p class="loading-state" role="status">جارٍ التحميل…</p>
+    </main>
+
+    <footer class="site-footer">
+      <span>همسة</span>
+      <span>مساحة للكلام الصريح.</span>
+    </footer>
+  </div>
+  <noscript><p class="feedback">فعّل JavaScript لاستخدام همسة.</p></noscript>
+
+  <template id="landing-template">
+    <div class="landing-layout">
+      <section class="hero-panel" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <h1 id="hero-title">قلها بصراحة،<br>أرسلها كهمسة.</h1>
+          <p>شارك رابطك واستقبل رسائل مجهولة. تبقى الرسائل في صندوقك الخاص إلى أن تختار نشر ردّ عليها.</p>
+        </div>
+        <div class="hero-preview" aria-hidden="true">
+          <span class="preview-orbit orbit-large"></span>
+          <span class="preview-orbit orbit-small"></span>
+          <span class="preview-spark spark-one">✦</span>
+          <span class="preview-spark spark-two">✧</span>
+          <div class="preview-device">
+            <span class="preview-device-bar"></span>
+            <span class="preview-device-icon brand-mark"><i></i><i></i><i></i></span>
+            <strong class="preview-device-title">أرسل همسة</strong>
+            <div class="preview-device-line">أكثر شيء تحبّه في يومك؟</div>
+            <span class="preview-device-button">إرسال</span>
+          </div>
+          <span class="preview-bubble bubble-top">وصلتك همسة!</span>
+          <span class="preview-bubble bubble-bottom">رسالة مجهولة</span>
+        </div>
+      </section>
+
+      <section class="auth-panel card" aria-labelledby="auth-title">
+        <div class="auth-heading">
+          <h2 id="auth-title">ابدأ مع همسة</h2>
+          <p>أنشئ حسابك لتحصل على رابطك الخاص.</p>
+        </div>
+        <div class="auth-tabs" aria-label="خيارات الحساب">
+          <button class="tab-button" type="button" data-auth="register" aria-pressed="true">إنشاء حساب</button>
+          <button class="tab-button" type="button" data-auth="login" aria-pressed="false">تسجيل الدخول</button>
+        </div>
+        <form class="form-stack" method="post" data-form="register">
+          <div class="field">
+            <label for="register-name">الاسم الظاهر</label>
+            <input id="register-name" name="displayName" autocomplete="nickname" placeholder="مثال: نور" maxlength="100" required dir="auto">
+          </div>
+          <div class="field">
+            <label for="register-username">اسم المستخدم</label>
+            <input id="register-username" name="username" autocomplete="username" placeholder="noor" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]{3,24}" required spellcheck="false" autocapitalize="none" dir="ltr" aria-describedby="username-hint">
+            <small id="username-hint">من 3 إلى 24 حرفًا إنجليزيًا أو رقمًا أو شرطة سفلية.</small>
+          </div>
+          <div class="field">
+            <label for="register-password">كلمة المرور</label>
+            <input id="register-password" type="password" name="password" autocomplete="new-password" minlength="10" maxlength="256" required dir="ltr" aria-describedby="password-hint">
+            <small id="password-hint">10 أحرف على الأقل.</small>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">أنشئ حسابي</button>
+          </div>
+          <p class="feedback" role="status" hidden></p>
+        </form>
+        <form class="form-stack" method="post" data-form="login" hidden>
+          <div class="field">
+            <label for="login-username">اسم المستخدم</label>
+            <input id="login-username" name="username" autocomplete="username" placeholder="noor" maxlength="24" required spellcheck="false" autocapitalize="none" dir="ltr">
+          </div>
+          <div class="field">
+            <label for="login-password">كلمة المرور</label>
+            <input id="login-password" type="password" name="password" autocomplete="current-password" maxlength="256" required dir="ltr">
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">ادخل إلى حسابي</button>
+          </div>
+          <p class="feedback" role="status" hidden></p>
+        </form>
+      </section>
+    </div>
+  </template>
+
+  <template id="workspace-template">
+    <div class="workspace-layout">
+      <aside class="profile-summary card" aria-labelledby="summary-name">
+        <div class="avatar" data-avatar aria-hidden="true"></div>
+        <h1 id="summary-name" data-name dir="auto"></h1>
+        <p class="handle" data-handle dir="ltr"></p>
+        <p class="profile-bio" data-bio dir="auto" hidden></p>
+        <p class="profile-status" data-profile-status></p>
+        <div class="share-section">
+          <label for="share-link">رابط استقبال الهمسات</label>
+          <input id="share-link" type="url" readonly dir="ltr">
+          <div class="action-row">
+            <button class="button button-primary" type="button" data-copy>نسخ الرابط</button>
+            <a class="button button-secondary" data-public-link>عرض صفحتي</a>
+          </div>
+          <p class="feedback" data-copy-feedback role="status" hidden></p>
+        </div>
+      </aside>
+
+      <section class="inbox-panel card" aria-labelledby="workspace-title">
+        <div class="panel-heading">
+          <h2 id="workspace-title">حسابي</h2>
+        </div>
+        <div class="auth-tabs workspace-tabs" aria-label="أقسام الحساب">
+          <button class="tab-button" type="button" data-workspace="inbox" aria-pressed="true">صندوق الوارد</button>
+          <button class="tab-button" type="button" data-workspace="settings" aria-pressed="false">إعدادات الصفحة</button>
+        </div>
+        <div data-section="inbox">
+          <div class="section-toolbar">
+            <p class="muted">الهمسات خاصة حتى تنشر ردًا عليها.</p>
+            <button class="button button-ghost" type="button" data-refresh>تحديث</button>
+          </div>
+          <p class="feedback" data-inbox-feedback role="status" hidden></p>
+          <div class="message-list" data-messages></div>
+        </div>
+        <div data-section="settings" hidden>
+          <form class="form-stack" method="post" data-settings>
+            <div class="field">
+              <label for="settings-name">الاسم الظاهر</label>
+              <input id="settings-name" name="displayName" maxlength="100" required dir="auto">
+            </div>
+            <div class="field">
+              <label for="settings-bio">نبذة عنك</label>
+              <textarea id="settings-bio" name="bio" maxlength="500" rows="3" dir="auto" placeholder="تظهر النبذة في صفحتك العامة"></textarea>
+            </div>
+            <label class="checkbox-field" for="settings-accepting">
+              <input id="settings-accepting" type="checkbox" name="accepting">
+              السماح باستقبال همسات جديدة
+            </label>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">حفظ التغييرات</button>
+            </div>
+            <p class="feedback" role="status" hidden></p>
+          </form>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <template id="public-template">
+    <div class="public-layout">
+      <section class="card public-profile" aria-labelledby="public-name">
+        <div class="avatar" data-avatar aria-hidden="true"></div>
+        <h1 id="public-name" data-name dir="auto"></h1>
+        <p class="handle" data-handle dir="ltr"></p>
+        <p class="profile-bio" data-bio dir="auto" hidden></p>
+        <form class="form-stack message-form" method="post" data-message-form>
+          <div class="field">
+            <label for="message-body">أرسل همسة مجهولة</label>
+            <textarea id="message-body" name="body" placeholder="اكتب همستك هنا…" maxlength="1000" rows="5" required dir="auto" aria-describedby="message-hint"></textarea>
+            <div class="field-meta">
+              <small id="message-hint">يمكن لصاحب الصفحة نشر رسالتك مع ردّه.</small>
+              <small data-message-count dir="ltr" aria-hidden="true">0 / 500</small>
+            </div>
+          </div>
+          <div class="trap-field" aria-hidden="true">
+            <label>موقع إلكتروني <input name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">إرسال الهمسة</button>
+          </div>
+          <p class="feedback" role="status" hidden></p>
+        </form>
+        <p class="empty-state" data-closed hidden>صاحب الصفحة أوقف استقبال الهمسات الجديدة.</p>
+      </section>
+      <section class="answers-section" aria-labelledby="answers-title">
+        <h2 id="answers-title">الردود المنشورة</h2>
+        <div class="message-list" data-answers></div>
+      </section>
+    </div>
+  </template>
+
+  <template id="message-template">
+    <article class="message-card">
+      <div class="message-meta">
+        <span>همسة مجهولة</span>
+        <time></time>
+      </div>
+      <p class="message-body" data-body dir="auto"></p>
+      <div class="answer-block" data-answer-block hidden>
+        <strong>الرد المنشور</strong>
+        <p data-answer dir="auto"></p>
+      </div>
+      <form class="form-stack answer-form" method="post" data-answer-form hidden>
+        <div class="field">
+          <label>ردّك العلني
+            <textarea name="answer" maxlength="1000" rows="3" required dir="auto"></textarea>
+          </label>
+          <small>سيظهر الرد مع الهمسة في صفحتك العامة.</small>
+        </div>
+        <div class="action-row">
+          <button class="button button-primary" type="submit">نشر الرد</button>
+          <button class="button button-ghost" type="button" data-cancel-answer>إلغاء</button>
+        </div>
+      </form>
+      <div class="message-actions action-row" data-message-actions hidden>
+        <button class="button button-secondary" type="button" data-reply>ردّ</button>
+        <button class="button button-ghost button-danger" type="button" data-delete>حذف</button>
+      </div>
+      <div class="delete-confirm" data-delete-confirm hidden>
+        <p>هل تريد حذف هذه الهمسة؟ سيُحذف ردّك المنشور معها.</p>
+        <div class="action-row">
+          <button class="button button-secondary button-danger" type="button" data-confirm-delete>تأكيد الحذف</button>
+          <button class="button button-ghost" type="button" data-cancel-delete>إلغاء</button>
+        </div>
+      </div>
+      <p class="feedback" role="status" hidden></p>
+    </article>
+  </template>
+
+  <template id="unavailable-template">
+    <section class="card unavailable-panel">
+      <h1></h1>
+      <p></p>
+      <a class="button button-primary" href="./" data-home>العودة للرئيسية</a>
+    </section>
+  </template>
+</body>
+</html>
